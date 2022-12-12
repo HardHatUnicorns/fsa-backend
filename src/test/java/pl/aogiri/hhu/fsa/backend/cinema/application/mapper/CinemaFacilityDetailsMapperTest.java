@@ -1,18 +1,17 @@
 package pl.aogiri.hhu.fsa.backend.cinema.application.mapper;
 
 import org.junit.jupiter.api.Test;
-import static org.mockito.Mockito.mock;
-
-import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDto;
+import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDetailsDto;
 import pl.aogiri.hhu.fsa.backend.cinema.domain.entity.CinemaFacilityEntity;
 import pl.aogiri.hhu.fsa.backend.cinema.exception.CinemaFacilityNotFoundException;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class CinemaFacilityMapperTest {
+class CinemaFacilityDetailsMapperTest {
 
     @Test
     public void toDtoMethodShouldReturnDtoObjectIfProvideCorrectEntity() {
@@ -20,22 +19,31 @@ class CinemaFacilityMapperTest {
         Long id = 1L;
         String name = "Cinema City Bonarka";
         String address = "Henryka Kamieńskiego 11, 30-644 Kraków";
+        String description = "Example description for cinema facility.";
+        String telephone = "600900100";
+        String email = "bonarka@cinemacity.pl";
         CinemaFacilityEntity cinemaFacilityEntity = mock(CinemaFacilityEntity.class);
         when(cinemaFacilityEntity.getId()).thenReturn(id);
         when(cinemaFacilityEntity.getName()).thenReturn(name);
         when(cinemaFacilityEntity.getAddress()).thenReturn(address);
+        when(cinemaFacilityEntity.getDescription()).thenReturn(description);
+        when(cinemaFacilityEntity.getTelephone()).thenReturn(telephone);
+        when(cinemaFacilityEntity.getEmail()).thenReturn(email);
 
         Optional<CinemaFacilityEntity> cinemaFacilityEntityPossible = Optional.of(cinemaFacilityEntity);
-        CinemaFacilityMapper cinemaFacilityMapper = new CinemaFacilityMapper();
+        CinemaFacilityDetailsMapper cinemaFacilityDetailsMapper = new CinemaFacilityDetailsMapper();
 
         //when
-        CinemaFacilityDto cinemaFacilityDto = cinemaFacilityMapper.toDto(cinemaFacilityEntityPossible);
+        CinemaFacilityDetailsDto cinemaFacilityDetailsDto = cinemaFacilityDetailsMapper.toDto(cinemaFacilityEntityPossible);
 
         //then
-        assertNotNull(cinemaFacilityDto);
-        assertEquals(name, cinemaFacilityDto.getName());
-        assertEquals(address, cinemaFacilityDto.getAddress());
-        assertEquals(id, cinemaFacilityDto.getId());
+        assertNotNull(cinemaFacilityDetailsDto);
+        assertEquals(name, cinemaFacilityDetailsDto.getName());
+        assertEquals(address, cinemaFacilityDetailsDto.getAddress());
+        assertEquals(id, cinemaFacilityDetailsDto.getId());
+        assertEquals(description, cinemaFacilityDetailsDto.getDescription());
+        assertEquals(telephone, cinemaFacilityDetailsDto.getTelephone());
+        assertEquals(email, cinemaFacilityDetailsDto.getEmail());
     }
 
     @Test
