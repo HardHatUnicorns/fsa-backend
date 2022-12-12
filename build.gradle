@@ -54,3 +54,7 @@ dependencyManagement {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+tasks.named('compileJava') {
+    inputs.files(tasks.named('processResources'))
+}
