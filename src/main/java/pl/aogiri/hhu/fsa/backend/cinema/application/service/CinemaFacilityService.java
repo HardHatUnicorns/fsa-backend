@@ -4,26 +4,26 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.mapper.CinemaFacilityMapper;
-import pl.aogiri.hhu.fsa.backend.cinema.domain.entity.CinemaFacilityEntity;
 import pl.aogiri.hhu.fsa.backend.cinema.domain.repository.CinemaFacilityRepository;
+import pl.aogiri.hhu.fsa.backend.cinema.domain.repository.CinemaRepository;
+import pl.aogiri.hhu.fsa.backend.cinema.exception.CinemaNotFoundException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class CinemaFacilityService {
-    private final CinemaFacilityMapper cinemaFacilityMapper;
     private final CinemaFacilityRepository cinemaFacilityRepository;
+    private final CinemaRepository cinemaRepository;
 
-    public List<CinemaFacilityDto> getFacilities(Long id){
-        List<CinemaFacilityEntity> cinemaFacilityEntityList = cinemaFacilityRepository.findAllByCinemaId(id);
-        List<CinemaFacilityDto> cinemaFacilityDtoList = new ArrayList<>(cinemaFacilityEntityList.size());
-        for(CinemaFacilityEntity cinemaFacilityEntity: cinemaFacilityEntityList ){
-            cinemaFacilityDtoList.add(this.cinemaFacilityMapper.toDto(Optional.of(cinemaFacilityEntity)));
+    public List<CinemaFacilityDto> getFacilities(Long cinemaId){
+        if(cinemaRepository.findById(cinemaId).isEmpty()){
+            throw new CinemaNotFoundException(cinemaId);
         }
 
-        return cinemaFacilityDtoList;
+        return cinemaFacilityRepository.findAllByCinemaId(cinemaId)
+                .stream()
+                .map(CinemaFacilityMapper::toDto)
+                .toList();
     }
 }
