@@ -23,7 +23,6 @@ public class ScoreEntityFixture {
     public static ScoreEntity johnSmith_theIncredibles_score(String score) {
         final var scoreEntity = new ScoreEntity();
         scoreEntity.setUser(UserEntityFixture.johnSmith());
-        scoreEntity.setMovie(MovieEntityFixture.theIncredibles());
         scoreEntity.setScore(new BigDecimal(score));
         return scoreEntity;
     }

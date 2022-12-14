@@ -15,7 +15,7 @@ public class MovieEntityFixture {
         movieEntity.setScores(List.of(
                 ScoreEntityFixture.johnDon_theIncredibles_score("8"),
                 ScoreEntityFixture.janeDoe_theIncredibles_score("9"),
-                ScoreEntityFixture.johnDon_theIncredibles_score("8")
+                ScoreEntityFixture.johnSmith_theIncredibles_score("8")
         ));
         movieEntity.setGenres(List.of(GenreEntityFixture.action(), GenreEntityFixture.comedy()));
         movieEntity.setDurationInMinutes(115);
