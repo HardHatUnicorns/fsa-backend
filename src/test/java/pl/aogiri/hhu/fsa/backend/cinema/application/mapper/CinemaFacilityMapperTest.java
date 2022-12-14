@@ -1,9 +1,7 @@
 package pl.aogiri.hhu.fsa.backend.cinema.application.mapper;
 
 import org.junit.jupiter.api.Test;
-
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDto;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class CinemaFacilityMapperTest {
