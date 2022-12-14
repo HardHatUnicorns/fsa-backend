@@ -1,7 +1,7 @@
 package pl.aogiri.hhu.fsa.backend.cinema.web.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.service.CinemaFacilityService;
 
