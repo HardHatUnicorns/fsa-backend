@@ -12,7 +12,6 @@ import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaDetailsDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDetailsDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDto;
-import pl.aogiri.hhu.fsa.backend.cinema.exception.CinemaNotFoundException;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public interface CinemaController {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     default List<CinemaDto> getCinemas() {
-        throw new CinemaNotFoundException(1);
+        throw new NotImplementedException();
     }
 
     @Operation(summary = "Get cinema details")
