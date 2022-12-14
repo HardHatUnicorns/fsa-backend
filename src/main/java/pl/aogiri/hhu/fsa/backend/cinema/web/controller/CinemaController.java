@@ -62,7 +62,7 @@ public interface CinemaController {
             value = "/{cinemaId}/facilities",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    default List<CinemaFacilityDto> getCinemaFacilities(@PathVariable long cinemaId) {
+    default List<CinemaFacilityDto> getCinemaFacilitiesByCinemaId(@PathVariable long cinemaId) {
         throw new NotImplementedException();
     }
 
