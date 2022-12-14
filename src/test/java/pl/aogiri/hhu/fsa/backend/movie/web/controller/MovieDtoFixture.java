@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 
-class MovieDtoFixture {
+public class MovieDtoFixture {
 
     public static MovieDto theIncredibles() {
         final var movieDto = new MovieDto();

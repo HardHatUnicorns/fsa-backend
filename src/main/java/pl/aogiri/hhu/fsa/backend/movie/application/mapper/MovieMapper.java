@@ -27,7 +27,7 @@ public class MovieMapper {
                 .map(ScoreEntity::getScore)
                 .map(bd -> new BigDecimal[]{bd, BigDecimal.ONE})
                 .reduce((a, b) -> new BigDecimal[]{a[0].add(b[0]), a[1].add(BigDecimal.ONE)})
-                .map(totalWithCount -> totalWithCount[0].divide(totalWithCount[1], RoundingMode.HALF_UP))
+                .map(totalWithCount -> totalWithCount[0].divide(totalWithCount[1], 2, RoundingMode.HALF_UP))
                 .orElse(BigDecimal.ZERO);
     }
 
