@@ -1,6 +1,6 @@
 package pl.aogiri.hhu.fsa.backend.cinema.application.service;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.mapper.CinemaFacilityDtoFixture;
@@ -23,7 +23,7 @@ class CinemaFacilityServiceTest {
     private CinemaFacilityRepository cinemaFacilityRepository;
     private CinemaFacilityService cinemaFacilityService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         cinemaRepository = mock(CinemaRepository.class);
         cinemaFacilityRepository = mock(CinemaFacilityRepository.class);
