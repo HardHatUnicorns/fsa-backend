@@ -1,8 +1,10 @@
 package pl.aogiri.hhu.fsa.backend.cinema.application.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDto;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pl.aogiri.hhu.fsa.backend.cinema.application.mapper.CinemaFacilityDtoFixture;
 import pl.aogiri.hhu.fsa.backend.cinema.application.mapper.CinemaFacilityEntityFixture;
 import pl.aogiri.hhu.fsa.backend.cinema.domain.repository.CinemaFacilityRepository;
@@ -15,48 +17,55 @@ import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
 
+@ExtendWith(MockitoExtension.class)
 class CinemaFacilityServiceTest {
 
+    @Mock
     private CinemaRepository cinemaRepository;
-    private CinemaFacilityRepository cinemaFacilityRepository;
-    private CinemaFacilityService cinemaFacilityService;
 
-    @BeforeEach
-    public void setUp() {
-        cinemaRepository = mock(CinemaRepository.class);
-        cinemaFacilityRepository = mock(CinemaFacilityRepository.class);
-        cinemaFacilityService = new CinemaFacilityService(cinemaFacilityRepository, cinemaRepository);
-    }
+    @Mock
+    private CinemaFacilityRepository cinemaFacilityRepository;
+
+    @InjectMocks
+    private CinemaFacilityService cinemaFacilityService;
 
     @Test
     void shouldReturnAllFacilitiesForCorrectCinemaId() {
         //given
-        Long givenCinemaId = 1L;
-        given(cinemaFacilityRepository.findAllByCinemaId(givenCinemaId))
-                .willReturn(List.of(CinemaFacilityEntityFixture.cinemaCityGaleriaKazimierz(),
-                        CinemaFacilityEntityFixture.cinemaCityBonarka()));
+        final var givenCinemaId = 1L;
+        final var facilities = List.of(
+                CinemaFacilityEntityFixture.cinemaCityGaleriaKazimierz(),
+                CinemaFacilityEntityFixture.cinemaCityBonarka()
+        );
+
+        given(cinemaFacilityRepository.findAllByCinemaId(givenCinemaId)).willReturn(facilities);
         given(cinemaRepository.existsById(givenCinemaId)).willReturn(true);
+
         //when
-        List<CinemaFacilityDto> facilities = cinemaFacilityService.getFacilities(givenCinemaId);
+        final var actualFacilities = cinemaFacilityService.getCinemaFacilitiesByCinemaId(givenCinemaId);
 
         //then
-        assertThat(facilities).
-                isEqualTo(List.of(CinemaFacilityDtoFixture.cinemaCityGaleriaKazimierz(),
-                        CinemaFacilityDtoFixture.cinemaCityBonarka()));
+        assertThat(actualFacilities)
+                .hasSize(2)
+                .containsExactlyInAnyOrder(
+                        CinemaFacilityDtoFixture.cinemaCityGaleriaKazimierz(),
+                        CinemaFacilityDtoFixture.cinemaCityBonarka()
+                );
     }
 
     @Test
     void shouldThrowCinemaNotfoundExceptionForIncorrectCinemaId() {
         //given
-        Long givenCinemaId = 999L;
+        final var givenCinemaId = 1L;
         given(cinemaRepository.existsById(givenCinemaId)).willReturn(false);
-        //when
-        CinemaNotFoundException exception = assertThrows(CinemaNotFoundException.class,
-                () -> cinemaFacilityService.getFacilities(givenCinemaId));
 
-        //then
-        assertThat(format("Cinema with id %d not found", givenCinemaId)).isEqualTo(exception.getMessage());
+        //when/then
+        final var exception = assertThrows(
+                CinemaNotFoundException.class,
+                () -> cinemaFacilityService.getCinemaFacilitiesByCinemaId(givenCinemaId)
+        );
+
+        assertThat(exception.getMessage()).isEqualTo(format("Cinema with id %d not found", givenCinemaId));
     }
 }

@@ -16,7 +16,7 @@ public class CinemaFacilityService {
     private final CinemaFacilityRepository cinemaFacilityRepository;
     private final CinemaRepository cinemaRepository;
 
-    public List<CinemaFacilityDto> getFacilities(Long cinemaId) {
+    public List<CinemaFacilityDto> getCinemaFacilitiesByCinemaId(Long cinemaId) {
         if (!cinemaRepository.existsById(cinemaId)) {
             throw new CinemaNotFoundException(cinemaId);
         }

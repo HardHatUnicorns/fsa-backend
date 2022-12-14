@@ -13,7 +13,7 @@ public class CinemaControllerImpl implements CinemaController {
     private final CinemaFacilityService cinemaFacilityService;
 
     @Override
-    public List<CinemaFacilityDto> getCinemaFacilities(long cinemaId) {
-        return cinemaFacilityService.getFacilities(cinemaId);
+    public List<CinemaFacilityDto> getCinemaFacilitiesByCinemaId(long cinemaId) {
+        return cinemaFacilityService.getCinemaFacilitiesByCinemaId(cinemaId);
     }
 }
