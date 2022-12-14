@@ -31,10 +31,10 @@ class CinemaServiceTest {
         given(cinemaRepository.findAll()).willReturn(cinemas);
 
         // when
-        final List<CinemaDto> allCinemas = cinemaService.getAllCinemas();
+        final List<CinemaDto> actualCinema = cinemaService.getAllCinemas();
 
         // then
-        assertThat(allCinemas)
+        assertThat(actualCinema)
                 .hasSize(1)
                 .containsExactlyInAnyOrder(CinemaDtoFixture.cinemaCity());
 

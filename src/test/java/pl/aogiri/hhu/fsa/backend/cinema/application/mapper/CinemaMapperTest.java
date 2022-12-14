@@ -14,9 +14,9 @@ public class CinemaMapperTest {
         final var givenEntity = CinemaEntityFixture.cinemaCity();
 
         // when
-        final CinemaDto dto = CinemaMapper.toDto(givenEntity);
+        final CinemaDto actualDto = CinemaMapper.toDto(givenEntity);
 
         // then
-        assertThat(dto).isEqualTo(CinemaDtoFixture.cinemaCity());
+        assertThat(actualDto).isEqualTo(CinemaDtoFixture.cinemaCity());
     }
 }
