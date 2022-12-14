@@ -19,7 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 })
 class MovieControllerAcceptanceTest extends AcceptanceTest {
 
-    @Disabled("FSA-21")
     @Test
     void shouldReturnAllMoviesInDatabase() {
         final var movieDtos = given()
