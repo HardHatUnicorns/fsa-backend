@@ -50,6 +50,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/cinemas/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/movies/**").permitAll()
                 .anyRequest()
                 .authenticated();
     }
