@@ -9,9 +9,11 @@ import pl.aogiri.hhu.fsa.backend.cinema.application.mapper.CinemaFacilityDtoFixt
 import pl.aogiri.hhu.fsa.backend.cinema.application.mapper.CinemaFacilityEntityFixture;
 import pl.aogiri.hhu.fsa.backend.cinema.domain.repository.CinemaFacilityRepository;
 import pl.aogiri.hhu.fsa.backend.cinema.domain.repository.CinemaRepository;
+import pl.aogiri.hhu.fsa.backend.cinema.exception.CinemaFacilityNotFoundException;
 import pl.aogiri.hhu.fsa.backend.cinema.exception.CinemaNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -55,7 +57,24 @@ class CinemaFacilityServiceTest {
     }
 
     @Test
-    void shouldThrowCinemaNotfoundExceptionForIncorrectCinemaId() {
+    void shouldReturnFacilitiesDetailsForCorrectCinemaId() {
+        //given
+        final var givenCinemaId = 1L;
+        final var givenFacilityId = 1L;
+        final var facility = CinemaFacilityEntityFixture.cinemaCityBonarka();
+
+        given(cinemaFacilityRepository.findById(givenFacilityId)).willReturn(Optional.of(facility));
+        given(cinemaRepository.existsById(givenCinemaId)).willReturn(true);
+
+        //when
+        final var actualFacilities = cinemaFacilityService.getCinemaFacilitiesDetailsByCinemaId(givenCinemaId, givenFacilityId);
+
+        //then
+        assertThat(actualFacilities).isEqualTo(actualFacilities);
+    }
+
+    @Test
+    void shouldThrowCinemaNotfoundExceptionForIncorrectCinemaIdForGetCinemaFacilities() {
         //given
         final var givenCinemaId = 1L;
         given(cinemaRepository.existsById(givenCinemaId)).willReturn(false);
@@ -67,5 +86,39 @@ class CinemaFacilityServiceTest {
         );
 
         assertThat(exception.getMessage()).isEqualTo(format("Cinema with id %d not found", givenCinemaId));
+    }
+
+    @Test
+    void shouldThrowCinemaNotfoundExceptionForIncorrectCinemaIdForGetCinemaFacilitiesDetails() {
+        //given
+        final var givenCinemaId = 1L;
+        final var givenFacilityId = 1L;
+        given(cinemaRepository.existsById(givenCinemaId)).willReturn(false);
+
+        //when/then
+        final var exception = assertThrows(
+                CinemaNotFoundException.class,
+                () -> cinemaFacilityService.getCinemaFacilitiesDetailsByCinemaId(givenCinemaId, givenFacilityId)
+        );
+
+        assertThat(exception.getMessage()).isEqualTo(format("Cinema with id %d not found", givenCinemaId));
+    }
+
+    @Test
+    void shouldThrowCinemaFacilityNotfoundExceptionForIncorrectCinemaFacilityIdForGetCinemaFacilitiesDetails() {
+        //given
+        final var givenCinemaId = 1L;
+        final var givenFacilityId = 999L;
+        given(cinemaRepository.existsById(givenCinemaId)).willReturn(true);
+        given(cinemaFacilityRepository.findById(givenFacilityId)).willReturn(Optional.empty());
+
+        //when/then
+        final var exception = assertThrows(
+                CinemaFacilityNotFoundException.class,
+                () -> cinemaFacilityService.getCinemaFacilitiesDetailsByCinemaId(givenCinemaId, givenFacilityId)
+        );
+
+        assertThat(exception.getMessage()).
+                isEqualTo(format("For cinema with id %s, facility with id %d not found", givenCinemaId, givenFacilityId));
     }
 }

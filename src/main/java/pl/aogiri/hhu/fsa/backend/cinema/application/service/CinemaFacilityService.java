@@ -2,10 +2,13 @@ package pl.aogiri.hhu.fsa.backend.cinema.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDetailsDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDto;
+import pl.aogiri.hhu.fsa.backend.cinema.application.mapper.CinemaFacilityDetailsMapper;
 import pl.aogiri.hhu.fsa.backend.cinema.application.mapper.CinemaFacilityMapper;
 import pl.aogiri.hhu.fsa.backend.cinema.domain.repository.CinemaFacilityRepository;
 import pl.aogiri.hhu.fsa.backend.cinema.domain.repository.CinemaRepository;
+import pl.aogiri.hhu.fsa.backend.cinema.exception.CinemaFacilityNotFoundException;
 import pl.aogiri.hhu.fsa.backend.cinema.exception.CinemaNotFoundException;
 
 import java.util.List;
@@ -25,5 +28,15 @@ public class CinemaFacilityService {
                 .stream()
                 .map(CinemaFacilityMapper::toDto)
                 .toList();
+    }
+
+    public CinemaFacilityDetailsDto getCinemaFacilitiesDetailsByCinemaId(Long cinemaId, Long facilityId) {
+        if (!cinemaRepository.existsById(cinemaId)) {
+            throw new CinemaNotFoundException(cinemaId);
+        }
+
+        return cinemaFacilityRepository.findById(facilityId)
+                .map(CinemaFacilityDetailsMapper::toDto)
+                .orElseThrow(() -> new CinemaFacilityNotFoundException(cinemaId, facilityId));
     }
 }
