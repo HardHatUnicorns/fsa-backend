@@ -2,7 +2,6 @@ package pl.aogiri.hhu.fsa.backend.movie.web.controller;
 
 
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.jdbc.Sql;
 import pl.aogiri.hhu.fsa.backend.common.AcceptanceTest;
@@ -35,7 +34,6 @@ class MovieControllerAcceptanceTest extends AcceptanceTest {
                 .contains(MovieDtoFixture.theIncredibles());
     }
 
-    @Disabled("FSA-45")
     @Test
     void shouldReturnMovieDetails() {
         final var detailsDto = given()
