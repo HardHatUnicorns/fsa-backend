@@ -8,7 +8,6 @@ import java.util.List;
 @Data
 public class MovieDetailsDto {
 
-    private Long id;
     private String title;
     private String description;
     private BigDecimal score;

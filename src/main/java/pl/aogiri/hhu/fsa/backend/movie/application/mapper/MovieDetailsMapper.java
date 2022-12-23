@@ -16,7 +16,6 @@ public class MovieDetailsMapper {
 
     public static MovieDetailsDto toDto(MovieEntity movieEntity) {
         final var movieDetailsDto = new MovieDetailsDto();
-        movieDetailsDto.setId(movieEntity.getId());
         movieDetailsDto.setTitle(movieEntity.getTitle());
         movieDetailsDto.setDescription(movieEntity.getDescription());
         movieDetailsDto.setScore(averageOfScores(movieEntity.getScores()));

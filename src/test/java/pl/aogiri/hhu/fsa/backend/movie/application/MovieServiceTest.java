@@ -66,7 +66,7 @@ class MovieServiceTest {
     void shouldThrowMovieNotFoundExceptionForIncorrectMovieIdForGetMovieDetails() {
         //given
         final var movieId = 5L;
-        given(movieRepository.findById(movieId)).willThrow(new MovieNotFoundException(movieId));
+        given(movieRepository.findById(movieId)).willReturn(Optional.empty());
 
         //when/then
         final var exception = assertThrows(
