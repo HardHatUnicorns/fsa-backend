@@ -11,11 +11,12 @@ import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Sql(scripts = {
+@Sql({
         "classpath:/sql/genre/genres.sql",
         "classpath:/sql/user/users.sql",
         "classpath:/sql/movie/the_incredibles.sql",
 })
+@Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 class MovieControllerAcceptanceTest extends AcceptanceTest {
 
     @Test

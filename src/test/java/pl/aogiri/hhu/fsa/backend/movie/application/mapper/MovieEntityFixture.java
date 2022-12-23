@@ -19,7 +19,7 @@ public class MovieEntityFixture {
         ));
         movieEntity.setGenres(List.of(GenreEntityFixture.action(), GenreEntityFixture.comedy()));
         movieEntity.setDurationInMinutes(115);
-        movieEntity.setReleaseDate(LocalDate.parse("2015-11-05"));
+        movieEntity.setReleaseDate(LocalDate.parse("2004-11-05"));
         movieEntity.setProductionCountry("USA");
         movieEntity.setDirector("Brad Bird");
         return movieEntity;
