@@ -6,5 +6,5 @@ import pl.aogiri.hhu.fsa.backend.movie.domain.entity.GenreEntity;
 import java.util.List;
 
 public interface GenreRepository extends JpaRepository<GenreEntity, Long> {
-    List<GenreEntity> findAllGenresByIds(List<Long> genresIds);
+    List<GenreEntity> findAllByIdIn(List<Long> genresIds);
 }

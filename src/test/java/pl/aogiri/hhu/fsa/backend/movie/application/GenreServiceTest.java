@@ -50,7 +50,7 @@ public class GenreServiceTest {
         final var genres = List.of(GenreEntityFixture.action(), GenreEntityFixture.comedy());
         final var genresIds = List.of(1L, 2L);
 
-        given(genreRepository.findAllGenresByIds(genresIds)).willReturn(genres);
+        given(genreRepository.findAllByIdIn(genresIds)).willReturn(genres);
 
         //when
         final List<GenreEntity> actualAllGenresByIds = genreService.getAllGenresForIds(genresIds);

@@ -21,6 +21,6 @@ public class GenreService {
     }
 
     public List<GenreEntity> getAllGenresForIds(List<Long> genresIds) {
-        return genreRepository.findAllGenresByIds(genresIds);
+        return genreRepository.findAllByIdIn(genresIds);
     }
 }
