@@ -28,4 +28,11 @@ public class MovieService {
                 .map(MovieDetailsMapper::toDto)
                 .orElseThrow(() -> new MovieNotFoundException(movieId));
     }
+
+    public List<MovieDto> findMovies(String title) {
+        return movieRepository.findByTitleContaining(title)
+                .stream()
+                .map(MovieMapper::toDto)
+                .toList();
+    }
 }

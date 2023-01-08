@@ -22,4 +22,9 @@ public class MovieControllerImpl implements MovieController {
     public MovieDetailsDto getMovieDetails(long movieId) {
         return movieService.getMovieDetails(movieId);
     }
+
+    @Override
+    public List<MovieDto> findMovies(String title) {
+        return movieService.findMovies(title);
+    }
 }

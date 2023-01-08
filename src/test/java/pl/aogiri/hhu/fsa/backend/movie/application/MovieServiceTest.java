@@ -77,4 +77,23 @@ class MovieServiceTest {
         //then
         assertThat(exception.getMessage()).isEqualTo(format("Movie with id %d not found", movieId));
     }
+
+
+    @Test
+    void shouldFindMovies() {
+        //given
+        final var movies = List.of(MovieEntityFixture.theIncredibles());
+
+        given(movieRepository.findByTitleContaining("Incredibles")).willReturn(movies);
+
+        //when
+        final List<MovieDto> actualAllMovies = movieService.findMovies("Incredibles");
+
+        //then
+        assertThat(actualAllMovies)
+                .hasSize(1)
+                .containsExactlyInAnyOrder(
+                        MovieDtoFixture.theIncredibles()
+                );
+    }
 }

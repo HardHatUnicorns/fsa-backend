@@ -48,4 +48,17 @@ public interface MovieController {
     default MovieDetailsDto getMovieDetails(@PathVariable long movieId) {
         throw new NotImplementedException();
     }
+
+    @Operation(summary = "Find movies including provided text in title")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation")
+    })
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    @GetMapping(
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    default List<MovieDto> findMovies(@RequestParam String title) {
+        throw new NotImplementedException();
+    }
 }
