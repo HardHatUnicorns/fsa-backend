@@ -21,7 +21,13 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import pl.aogiri.hhu.fsa.backend.auth.security.service.PostgresUserDetailsService;
+
+import java.util.Collections;
+import java.util.List;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -40,6 +46,8 @@ public class SecurityConfig {
                 .userDetailsService(userDetailsService)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(Customizer.withDefaults())
+                .cors()
+                .and()
                 .build();
     }
 
@@ -53,6 +61,18 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/movies/**").permitAll()
                 .anyRequest()
                 .authenticated();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Collections.singletonList("*"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("authorization", "content-type", "x-auth-token"));
+        configuration.setExposedHeaders(List.of("x-auth-token", "authorization"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 
-class MovieDetailsDtoFixture {
+public class MovieDetailsDtoFixture {
 
     public static MovieDetailsDto theIncredibles() {
         final var movieDetailsDto = new MovieDetailsDto();
@@ -16,7 +16,7 @@ class MovieDetailsDtoFixture {
         movieDetailsDto.setGenres(List.of("Action", "Comedy"));
         movieDetailsDto.setScore(new BigDecimal("8.33"));
         movieDetailsDto.setDuration("115 min");
-        movieDetailsDto.setReleaseDate("5 November 2015");
+        movieDetailsDto.setReleaseDate("5 November 2004");
         movieDetailsDto.setProductionCountry("USA");
         movieDetailsDto.setDirector("Brad Bird");
         return movieDetailsDto;

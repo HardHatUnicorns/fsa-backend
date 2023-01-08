@@ -1,22 +1,21 @@
 package pl.aogiri.hhu.fsa.backend.cinema.application.mapper;
 
 import org.junit.jupiter.api.Test;
-import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaDto;
-import pl.aogiri.hhu.fsa.backend.cinema.web.controller.CinemaDtoFixture;
+import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaDetailsDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CinemaMapperTest {
-
+class CinemaDetailsMapperTest {
     @Test
     public void entityDtoMapTest() {
         // given
         final var givenEntity = CinemaEntityFixture.cinemaCity();
 
         // when
-        final CinemaDto actualDto = CinemaMapper.toDto(givenEntity);
+        final CinemaDetailsDto actualDto = CinemaDetailsMapper.toDto(givenEntity);
 
         // then
-        assertThat(actualDto).isEqualTo(CinemaDtoFixture.cinemaCity());
+        assertThat(actualDto).isEqualTo(CinemaDetailsDtoFixture.cinemaCity());
     }
+
 }
