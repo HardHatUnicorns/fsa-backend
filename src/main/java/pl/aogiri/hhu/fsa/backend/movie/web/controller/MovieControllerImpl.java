@@ -3,8 +3,10 @@ package pl.aogiri.hhu.fsa.backend.movie.web.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import pl.aogiri.hhu.fsa.backend.movie.application.MovieService;
+import pl.aogiri.hhu.fsa.backend.movie.application.dto.AddedMovieDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDetailsDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
+import pl.aogiri.hhu.fsa.backend.movie.domain.entity.MovieEntity;
 
 import java.util.List;
 
@@ -21,5 +23,10 @@ public class MovieControllerImpl implements MovieController {
     @Override
     public MovieDetailsDto getMovieDetails(long movieId) {
         return movieService.getMovieDetails(movieId);
+    }
+
+    @Override
+    public MovieEntity addMovie(AddedMovieDto addedMovieDto) {
+        return movieService.addMovie(addedMovieDto);
     }
 }
