@@ -8,10 +8,12 @@ import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.mapper.MovieDetailsMapper;
 import pl.aogiri.hhu.fsa.backend.movie.application.mapper.MovieMapper;
 import pl.aogiri.hhu.fsa.backend.movie.domain.entity.GenreEntity;
+import pl.aogiri.hhu.fsa.backend.movie.domain.entity.MovieEntity;
 import pl.aogiri.hhu.fsa.backend.movie.domain.entity.ScoreEntity;
 import pl.aogiri.hhu.fsa.backend.movie.domain.repository.MovieRepository;
 import pl.aogiri.hhu.fsa.backend.movie.exception.MovieNotFoundException;
 
+import java.util.Comparator;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,6 +37,7 @@ public class MovieService {
 
     public List<MovieDto> getMoviesByCriteria(FilterDto criteria) {
         return movieRepository.findAll().stream()
+                .sorted(Comparator.comparing(MovieEntity::getReleaseDate).reversed())
                 .filter(x -> criteria.getYear().contains(x.getReleaseDate().getYear())
                 || criteria.getCountry().contains(x.getProductionCountry())
                 || criteria.getDirector().contains(x.getDirector())

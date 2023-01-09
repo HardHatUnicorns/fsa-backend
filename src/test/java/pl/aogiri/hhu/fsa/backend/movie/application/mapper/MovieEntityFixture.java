@@ -43,4 +43,25 @@ public class MovieEntityFixture {
         movieEntity.setDirector("Frank Darabont");
         return movieEntity;
     }
+
+    public static MovieEntity avatarTheWayOfWater() {
+        final var movieEntity = new MovieEntity();
+        movieEntity.setId(3L);
+        movieEntity.setTitle("Avatar: The Way of Water");
+        movieEntity.setDescription("Jake Sully lives with his newfound family formed on the extrasolar moon Pandora." +
+                " Once a familiar threat returns to finish what was previously started, Jake must work with Neytiri " +
+                "and the army of the Na'vi race to protect their home.");
+        movieEntity.setScores(List.of(
+                ScoreEntityFixture.johnDon_theShawshankRedemption_score("8"),
+                ScoreEntityFixture.janeDoe_theShawshankRedemption_score("9"),
+                ScoreEntityFixture.johnSmith_theShawshankRedemption_score("8")
+        ));
+        movieEntity.setGenres(List.of(GenreEntityFixture.action(), GenreEntityFixture.adventure(),
+                GenreEntityFixture.fantasy(), GenreEntityFixture.sciFi()));
+        movieEntity.setDurationInMinutes(192);
+        movieEntity.setReleaseDate(LocalDate.parse("2022-12-12"));
+        movieEntity.setProductionCountry("USA");
+        movieEntity.setDirector("James Cameron");
+        return movieEntity;
+    }
 }

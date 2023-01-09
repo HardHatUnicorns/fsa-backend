@@ -98,4 +98,48 @@ class MovieServiceTest {
                         MovieDtoFixture.theShawshankRedemption()
                 );
     }
+
+    @Test
+    void shouldReturnMoviesByYear() {
+        //given
+        final var movies = List.of(MovieEntityFixture.theIncredibles(), MovieEntityFixture.theShawshankRedemption());
+        final var criteria = new FilterDto();
+        criteria.setYear(List.of(2004));
+
+        given(movieRepository.findAll()).willReturn(movies);
+
+        //when
+        final List<MovieDto> actualAllMovies = movieService.getMoviesByCriteria(criteria);
+
+        //then
+        assertThat(actualAllMovies)
+                .hasSize(1)
+                .containsExactlyInAnyOrder(
+                        MovieDtoFixture.theIncredibles()
+                );
+    }
+
+    @Test
+    void shouldReturnMoviesByCountry() {
+        //given
+        final var movies = List.of(MovieEntityFixture.theIncredibles(),
+                MovieEntityFixture.theShawshankRedemption(),
+                MovieEntityFixture.avatarTheWayOfWater());
+        final var criteria = new FilterDto();
+        criteria.setCountry(List.of("USA"));
+
+        given(movieRepository.findAll()).willReturn(movies);
+
+        //when
+        final List<MovieDto> actualAllMovies = movieService.getMoviesByCriteria(criteria);
+
+        //then
+        assertThat(actualAllMovies)
+                .hasSize(3)
+                .containsExactly(
+                        MovieDtoFixture.avatarTheWayOfWater(),
+                        MovieDtoFixture.theIncredibles(),
+                        MovieDtoFixture.theShawshankRedemption()
+                );
+    }
 }
