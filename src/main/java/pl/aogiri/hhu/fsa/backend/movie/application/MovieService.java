@@ -7,6 +7,7 @@ import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDetailsDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.mapper.MovieDetailsMapper;
 import pl.aogiri.hhu.fsa.backend.movie.application.mapper.MovieMapper;
+import pl.aogiri.hhu.fsa.backend.movie.domain.entity.GenreEntity;
 import pl.aogiri.hhu.fsa.backend.movie.domain.repository.MovieRepository;
 import pl.aogiri.hhu.fsa.backend.movie.exception.MovieNotFoundException;
 
@@ -17,7 +18,6 @@ import java.util.List;
 public class MovieService {
 
     private final MovieRepository movieRepository;
-
     public List<MovieDto> getMovies(FilterDto criteria){
         if(criteria.withNoParam()){
             return getAllMovies();
@@ -33,13 +33,15 @@ public class MovieService {
     }
 
     public List<MovieDto> getMoviesByCriteria(FilterDto criteria) {
-                return movieRepository.findAll().stream()
-                        .filter(x -> criteria.getYear().contains(x.getReleaseDate().getYear())
-                        || criteria.getCountry().contains(x.getProductionCountry())
-                        || criteria.getDirector().contains(x.getDirector()))
-                        .map(MovieMapper::toDto)
-                        .toList();
-    }
+        return movieRepository.findAll().stream()
+                .filter(x -> criteria.getYear().contains(x.getReleaseDate().getYear())
+                || criteria.getCountry().contains(x.getProductionCountry())
+                || criteria.getDirector().contains(x.getDirector())
+                || x.getGenres().stream().map(GenreEntity::getName)
+                        .anyMatch( g -> criteria.getGenre().contains(g)))
+                .map(MovieMapper::toDto)
+                .toList();
+}
 
     public MovieDetailsDto getMovieDetails(Long movieId) {
         return movieRepository.findById(movieId)
