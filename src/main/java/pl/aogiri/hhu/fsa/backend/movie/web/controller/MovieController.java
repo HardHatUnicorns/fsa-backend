@@ -49,21 +49,4 @@ public interface MovieController {
     default MovieDetailsDto getMovieDetails(@PathVariable long movieId) {
         throw new NotImplementedException();
     }
-//
-//    @Operation(summary = "Get movies by criteria")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Successful operation"),
-//
-//    })
-//    @ResponseStatus(HttpStatus.OK)
-//    @ResponseBody
-//    @GetMapping(
-//            value = "",
-//            produces = {MediaType.APPLICATION_JSON_VALUE}
-//    )
-//    default List<MovieDto> getMoviesByFilter() {
-//
-//
-//        throw new NotImplementedException();
-//    }
 }
