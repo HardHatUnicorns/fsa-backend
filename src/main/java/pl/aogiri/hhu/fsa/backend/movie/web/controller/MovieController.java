@@ -8,8 +8,10 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import pl.aogiri.hhu.fsa.backend.movie.application.dto.AddedMovieDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDetailsDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
+import pl.aogiri.hhu.fsa.backend.movie.domain.entity.MovieEntity;
 
 import java.util.List;
 
@@ -46,6 +48,18 @@ public interface MovieController {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     default MovieDetailsDto getMovieDetails(@PathVariable long movieId) {
+        throw new NotImplementedException();
+    }
+
+    @Operation(summary = "Add new movie")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "404", description = "Movie not found")
+    })
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    @PostMapping
+    default MovieEntity addMovie(@RequestBody AddedMovieDto addedMovieDto) {
         throw new NotImplementedException();
     }
 }
