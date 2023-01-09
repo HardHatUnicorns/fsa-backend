@@ -17,4 +17,11 @@ public class GenreEntityFixture {
         genreEntity.setName("Comedy");
         return genreEntity;
     }
+
+    public static GenreEntity drama() {
+        final var genreEntity = new GenreEntity();
+        genreEntity.setId(3L);
+        genreEntity.setName("Drama");
+        return genreEntity;
+    }
 }

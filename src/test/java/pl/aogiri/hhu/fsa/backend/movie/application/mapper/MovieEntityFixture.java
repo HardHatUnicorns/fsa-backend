@@ -24,4 +24,23 @@ public class MovieEntityFixture {
         movieEntity.setDirector("Brad Bird");
         return movieEntity;
     }
+
+    public static MovieEntity theShawshankRedemption() {
+        final var movieEntity = new MovieEntity();
+        movieEntity.setId(2L);
+        movieEntity.setTitle("The Shawshank Redemption");
+        movieEntity.setDescription("Two imprisoned men bond over a number of years, " +
+                "finding solace and eventual redemption through acts of common decency.");
+        movieEntity.setScores(List.of(
+                ScoreEntityFixture.johnDon_theShawshankRedemption_score("8"),
+                ScoreEntityFixture.janeDoe_theShawshankRedemption_score("9"),
+                ScoreEntityFixture.johnSmith_theShawshankRedemption_score("8")
+        ));
+        movieEntity.setGenres(List.of(GenreEntityFixture.drama()));
+        movieEntity.setDurationInMinutes(142);
+        movieEntity.setReleaseDate(LocalDate.parse("1994-09-10"));
+        movieEntity.setProductionCountry("USA");
+        movieEntity.setDirector("Frank Darabont");
+        return movieEntity;
+    }
 }

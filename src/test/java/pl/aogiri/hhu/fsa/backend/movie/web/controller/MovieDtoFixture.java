@@ -18,4 +18,15 @@ public class MovieDtoFixture {
         movieDto.setScore(new BigDecimal("8.33"));
         return movieDto;
     }
+
+    public static MovieDto theShawshankRedemption() {
+        final var movieDto = new MovieDto();
+        movieDto.setId(2L);
+        movieDto.setTitle("The Shawshank Redemption");
+        movieDto.setShortDescription("Two imprisoned men bond over a number of years, " +
+                "finding solace and eventual redemption through acts of common d...");
+        movieDto.setGenres(List.of("Drama"));
+        movieDto.setScore(new BigDecimal("8.33"));
+        return movieDto;
+    }
 }

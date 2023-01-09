@@ -26,4 +26,25 @@ public class ScoreEntityFixture {
         scoreEntity.setScore(new BigDecimal(score));
         return scoreEntity;
     }
+
+    public static ScoreEntity johnSmith_theShawshankRedemption_score(String score) {
+        final var scoreEntity = new ScoreEntity();
+        scoreEntity.setUser(UserEntityFixture.johnSmith());
+        scoreEntity.setScore(new BigDecimal(score));
+        return scoreEntity;
+    }
+
+    public static ScoreEntity johnDon_theShawshankRedemption_score(String score) {
+        final var scoreEntity = new ScoreEntity();
+        scoreEntity.setUser(UserEntityFixture.johnDoe());
+        scoreEntity.setScore(new BigDecimal(score));
+        return scoreEntity;
+    }
+
+    public static ScoreEntity janeDoe_theShawshankRedemption_score(String score) {
+        final var scoreEntity = new ScoreEntity();
+        scoreEntity.setUser(UserEntityFixture.janeDoe());
+        scoreEntity.setScore(new BigDecimal(score));
+        return scoreEntity;
+    }
 }

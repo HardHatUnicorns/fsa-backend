@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.aogiri.hhu.fsa.backend.movie.application.dto.FilterDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.mapper.MovieEntityFixture;
 import pl.aogiri.hhu.fsa.backend.movie.domain.repository.MovieRepository;
@@ -76,5 +77,25 @@ class MovieServiceTest {
 
         //then
         assertThat(exception.getMessage()).isEqualTo(format("Movie with id %d not found", movieId));
+    }
+
+    @Test
+    void shouldReturnMoviesByDirectorFilter() {
+        //given
+        final var movies = List.of(MovieEntityFixture.theIncredibles(), MovieEntityFixture.theShawshankRedemption());
+        final var criteria = new FilterDto();
+        criteria.setDirector(List.of("Frank Darabont"));
+
+        given(movieRepository.findAll()).willReturn(movies);
+
+        //when
+        final List<MovieDto> actualAllMovies = movieService.getMoviesByCriteria(criteria);
+
+        //then
+        assertThat(actualAllMovies)
+                .hasSize(1)
+                .containsExactlyInAnyOrder(
+                        MovieDtoFixture.theShawshankRedemption()
+                );
     }
 }
