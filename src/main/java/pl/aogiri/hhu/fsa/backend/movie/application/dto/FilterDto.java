@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 @Data
 public class FilterDto {
     List<String> genre = new ArrayList<>();
-    List<String> score = new ArrayList<>();
+    List<Integer> score = new ArrayList<>();
     List<Integer> year = new ArrayList<>();
     List<String> country = new ArrayList<>();
     List<String> director = new ArrayList<>();

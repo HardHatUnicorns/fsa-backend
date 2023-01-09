@@ -8,6 +8,7 @@ import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.mapper.MovieDetailsMapper;
 import pl.aogiri.hhu.fsa.backend.movie.application.mapper.MovieMapper;
 import pl.aogiri.hhu.fsa.backend.movie.domain.entity.GenreEntity;
+import pl.aogiri.hhu.fsa.backend.movie.domain.entity.ScoreEntity;
 import pl.aogiri.hhu.fsa.backend.movie.domain.repository.MovieRepository;
 import pl.aogiri.hhu.fsa.backend.movie.exception.MovieNotFoundException;
 
@@ -38,7 +39,9 @@ public class MovieService {
                 || criteria.getCountry().contains(x.getProductionCountry())
                 || criteria.getDirector().contains(x.getDirector())
                 || x.getGenres().stream().map(GenreEntity::getName)
-                        .anyMatch( g -> criteria.getGenre().contains(g)))
+                        .anyMatch( g -> criteria.getGenre().contains(g))
+                || x.getScores().stream().map(ScoreEntity::getScore)
+                        .anyMatch( s -> criteria.getScore().contains(s.intValue())))
                 .map(MovieMapper::toDto)
                 .toList();
 }
