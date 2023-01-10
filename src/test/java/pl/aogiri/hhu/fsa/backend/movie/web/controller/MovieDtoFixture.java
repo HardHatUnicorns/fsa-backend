@@ -18,4 +18,26 @@ public class MovieDtoFixture {
         movieDto.setScore(new BigDecimal("8.33"));
         return movieDto;
     }
+
+    public static MovieDto theShawshankRedemption() {
+        final var movieDto = new MovieDto();
+        movieDto.setId(2L);
+        movieDto.setTitle("The Shawshank Redemption");
+        movieDto.setShortDescription("Two imprisoned men bond over a number of years, " +
+                "finding solace and eventual redemption through acts of common d...");
+        movieDto.setGenres(List.of("Drama"));
+        movieDto.setScore(new BigDecimal("8.33"));
+        return movieDto;
+    }
+
+    public static MovieDto avatarTheWayOfWater() {
+        final var movieDto = new MovieDto();
+        movieDto.setId(3L);
+        movieDto.setTitle("Avatar: The Way of Water");
+        movieDto.setShortDescription("Jake Sully lives with his newfound family formed on the extrasolar moon Pandora. " +
+                "Once a familiar threat returns...");
+        movieDto.setGenres(List.of("Action", "Adventure", "Fantasy", "Sci-Fi"));
+        movieDto.setScore(new BigDecimal("8.33"));
+        return movieDto;
+    }
 }

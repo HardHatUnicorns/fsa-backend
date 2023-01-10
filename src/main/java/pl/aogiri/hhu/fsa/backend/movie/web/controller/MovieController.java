@@ -13,6 +13,7 @@ import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDetailsDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.request.AddMovieRequest;
 import pl.aogiri.hhu.fsa.backend.movie.domain.entity.MovieEntity;
+import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieFilterDto;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ import java.util.List;
 @RequestMapping("/movies")
 public interface MovieController {
 
-    @Operation(summary = "Get all movies")
+    @Operation(summary = "Get movies by filters or all")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation")
     })
@@ -33,7 +34,7 @@ public interface MovieController {
             value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    default List<MovieDto> getMovies() {
+    default List<MovieDto> getMovies(MovieFilterDto criteria) {
         throw new NotImplementedException();
     }
 

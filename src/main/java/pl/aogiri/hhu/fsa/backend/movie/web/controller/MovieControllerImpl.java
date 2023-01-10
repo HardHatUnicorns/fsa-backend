@@ -7,6 +7,7 @@ import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDetailsDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.request.AddMovieRequest;
 import pl.aogiri.hhu.fsa.backend.movie.domain.entity.MovieEntity;
+import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieFilterDto;
 
 import java.util.List;
 
@@ -16,8 +17,8 @@ public class MovieControllerImpl implements MovieController {
     private final MovieService movieService;
 
     @Override
-    public List<MovieDto> getMovies() {
-        return movieService.getAllMovies();
+    public List<MovieDto> getMovies(MovieFilterDto criteria) {
+        return movieService.getMovies(criteria);
     }
 
     @Override
