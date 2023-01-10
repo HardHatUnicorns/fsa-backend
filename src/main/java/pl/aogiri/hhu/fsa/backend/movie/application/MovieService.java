@@ -30,7 +30,7 @@ public class MovieService {
     }
 
     public List<MovieDto> findMovies(String title) {
-        return movieRepository.findByTitleContaining(title)
+        return movieRepository.findByTitleContainingIgnoreCase(title)
                 .stream()
                 .map(MovieMapper::toDto)
                 .toList();

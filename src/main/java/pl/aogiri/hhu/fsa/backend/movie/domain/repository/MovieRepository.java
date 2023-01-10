@@ -6,5 +6,5 @@ import pl.aogiri.hhu.fsa.backend.movie.domain.entity.MovieEntity;
 import java.util.List;
 
 public interface MovieRepository extends JpaRepository<MovieEntity, Long> {
-    List<MovieEntity> findByTitleContaining(String title);
+    List<MovieEntity> findByTitleContainingIgnoreCase(String title);
 }

@@ -84,7 +84,7 @@ class MovieServiceTest {
         //given
         final var movies = List.of(MovieEntityFixture.theIncredibles());
 
-        given(movieRepository.findByTitleContaining("Incredibles")).willReturn(movies);
+        given(movieRepository.findByTitleContainingIgnoreCase("Incredibles")).willReturn(movies);
 
         //when
         final List<MovieDto> actualAllMovies = movieService.findMovies("Incredibles");
