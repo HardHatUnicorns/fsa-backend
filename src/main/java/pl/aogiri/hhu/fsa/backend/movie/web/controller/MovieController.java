@@ -52,10 +52,11 @@ public interface MovieController {
         throw new NotImplementedException();
     }
 
-    @Operation(summary = "Add new movie")
+    @Operation(summary = "Add new movie to database")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Successful operation"),
-            @ApiResponse(responseCode = "400", description = "The movie has not been added")
+            @ApiResponse(responseCode = "201", description = "Successful add movie"),
+            @ApiResponse(responseCode = "400", description = "Requested data are incorrect"),
+            @ApiResponse(responseCode = "500", description = "Error occurred when trying to add movie")
     })
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody

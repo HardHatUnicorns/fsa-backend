@@ -9,8 +9,6 @@ import pl.aogiri.hhu.fsa.backend.movie.domain.entity.ScoreEntity;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class MovieMapper {
@@ -31,15 +29,10 @@ public class MovieMapper {
         movieEntity.setDescription(addMovieRequest.getDescription());
         movieEntity.setGenres(genres);
         movieEntity.setDurationInMinutes(addMovieRequest.getDuration());
-        movieEntity.setReleaseDate(formatReleaseDate(addMovieRequest.getReleaseDate()));
+        movieEntity.setReleaseDate(addMovieRequest.getReleaseDate());
         movieEntity.setProductionCountry(addMovieRequest.getProductionCountry());
         movieEntity.setDirector(addMovieRequest.getDirector());
         return movieEntity;
-    }
-
-    private static LocalDate formatReleaseDate(String releaseDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(releaseDate, formatter);
     }
 
     private static BigDecimal averageOfScores(List<ScoreEntity> scores) {

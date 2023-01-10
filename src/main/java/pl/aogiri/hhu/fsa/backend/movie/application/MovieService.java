@@ -34,8 +34,14 @@ public class MovieService {
     }
 
     public MovieEntity addMovie(AddMovieRequest addMovieRequest) {
-        final var movieEntity = MovieMapper.toEntity(addMovieRequest, genreRepository.findAllByIdIn(addMovieRequest.getGenres()));
-        movieRepository.save(movieEntity);
-        return movieEntity;
+        final var requestedGenres = addMovieRequest.getGenres();
+        final var getGenresById = genreRepository.findAllByIdIn(requestedGenres);
+
+        if (getGenresById.size() != requestedGenres.size()) {
+            throw new IllegalArgumentException("Provided genres are incorrect");
+        }
+
+        final var movieEntity = MovieMapper.toEntity(addMovieRequest, getGenresById);
+        return movieRepository.save(movieEntity);
     }
 }
