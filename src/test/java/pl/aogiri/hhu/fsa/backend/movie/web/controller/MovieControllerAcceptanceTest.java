@@ -48,4 +48,20 @@ class MovieControllerAcceptanceTest extends AcceptanceTest {
 
         assertThat(detailsDto).isEqualTo(MovieDetailsDtoFixture.theIncredibles());
     }
+
+    @Test
+    void shouldFindMovies() {
+        final var movieDtos = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/movies/query?title=incredibles")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body().as(MovieDto[].class);
+
+        assertThat(movieDtos)
+                .hasSize(1)
+                .contains(MovieDtoFixture.theIncredibles());
+    }
 }
