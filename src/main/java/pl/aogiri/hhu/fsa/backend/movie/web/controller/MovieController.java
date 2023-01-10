@@ -56,6 +56,7 @@ public interface MovieController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @GetMapping(
+            value = "/query",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     default List<MovieDto> findMovies(@RequestParam String title) {
