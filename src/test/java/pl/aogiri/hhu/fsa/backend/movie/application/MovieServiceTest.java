@@ -5,8 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.aogiri.hhu.fsa.backend.movie.application.dto.FilterDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
+import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieFilterDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.mapper.MovieEntityFixture;
 import pl.aogiri.hhu.fsa.backend.movie.domain.repository.MovieRepository;
 import pl.aogiri.hhu.fsa.backend.movie.exception.MovieNotFoundException;
@@ -83,7 +83,7 @@ class MovieServiceTest {
     void shouldReturnMoviesByDirectorFilter() {
         //given
         final var movies = List.of(MovieEntityFixture.theIncredibles(), MovieEntityFixture.theShawshankRedemption());
-        final var criteria = new FilterDto();
+        final var criteria = new MovieFilterDto();
         criteria.setDirector(List.of("Frank Darabont"));
 
         given(movieRepository.findAll()).willReturn(movies);
@@ -103,7 +103,7 @@ class MovieServiceTest {
     void shouldReturnMoviesByYear() {
         //given
         final var movies = List.of(MovieEntityFixture.theIncredibles(), MovieEntityFixture.theShawshankRedemption());
-        final var criteria = new FilterDto();
+        final var criteria = new MovieFilterDto();
         criteria.setYear(List.of(2004));
 
         given(movieRepository.findAll()).willReturn(movies);
@@ -125,7 +125,7 @@ class MovieServiceTest {
         final var movies = List.of(MovieEntityFixture.theIncredibles(),
                 MovieEntityFixture.theShawshankRedemption(),
                 MovieEntityFixture.avatarTheWayOfWater());
-        final var criteria = new FilterDto();
+        final var criteria = new MovieFilterDto();
         criteria.setCountry(List.of("USA"));
 
         given(movieRepository.findAll()).willReturn(movies);
@@ -149,7 +149,7 @@ class MovieServiceTest {
         final var movies = List.of(MovieEntityFixture.theIncredibles(),
                 MovieEntityFixture.theShawshankRedemption(),
                 MovieEntityFixture.avatarTheWayOfWater());
-        final var criteria = new FilterDto();
+        final var criteria = new MovieFilterDto();
         criteria.setGenre(List.of("Comedy", "Fantasy"));
 
         given(movieRepository.findAll()).willReturn(movies);

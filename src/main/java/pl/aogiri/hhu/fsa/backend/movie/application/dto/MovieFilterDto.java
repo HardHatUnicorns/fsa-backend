@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Data
-public class FilterDto {
+public class MovieFilterDto {
     List<String> genre = new ArrayList<>();
     List<Integer> score = new ArrayList<>();
     List<Integer> year = new ArrayList<>();
     List<String> country = new ArrayList<>();
     List<String> director = new ArrayList<>();
 
-    public boolean withNoParam(){
-         return Stream.of(genre, score, year, country, director).allMatch(List::isEmpty);
+    public boolean withNoParam() {
+        return Stream.of(genre, score, year, country, director).allMatch(List::isEmpty);
     }
 }

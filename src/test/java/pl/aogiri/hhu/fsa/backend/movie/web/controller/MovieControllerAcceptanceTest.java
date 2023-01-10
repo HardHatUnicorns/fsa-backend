@@ -54,7 +54,7 @@ class MovieControllerAcceptanceTest extends AcceptanceTest {
         final var movieDtos = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/movies/query?title=incredibles")
+                .get("/movies?title=incredibles")
                 .then()
                 .statusCode(200)
                 .extract()

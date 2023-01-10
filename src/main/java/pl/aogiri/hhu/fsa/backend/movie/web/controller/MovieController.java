@@ -8,9 +8,9 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import pl.aogiri.hhu.fsa.backend.movie.application.dto.FilterDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDetailsDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
+import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieFilterDto;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/movies")
 public interface MovieController {
 
-    @Operation(summary = "Get all movies")
+    @Operation(summary = "Get movies by filters or all")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation"),
     })
@@ -31,7 +31,7 @@ public interface MovieController {
             value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    default List<MovieDto> getMovies(FilterDto criteria) {
+    default List<MovieDto> getMovies(MovieFilterDto criteria) {
         throw new NotImplementedException();
     }
 
@@ -47,20 +47,6 @@ public interface MovieController {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     default MovieDetailsDto getMovieDetails(@PathVariable long movieId) {
-        throw new NotImplementedException();
-    }
-
-    @Operation(summary = "Find movies including provided text in title")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful operation")
-    })
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    @GetMapping(
-            value = "/query",
-            produces = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    default List<MovieDto> findMovies(@RequestParam String title) {
         throw new NotImplementedException();
     }
 }
