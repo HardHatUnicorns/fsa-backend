@@ -7,11 +7,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.aogiri.hhu.fsa.backend.movie.application.dto.AddedMovieDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDetailsDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
+import pl.aogiri.hhu.fsa.backend.movie.application.request.AddMovieRequest;
+import pl.aogiri.hhu.fsa.backend.movie.domain.entity.MovieEntity;
 
 import java.util.List;
 
@@ -52,10 +52,17 @@ public interface MovieController {
     }
 
     @Operation(summary = "Add new movie")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "The movie has not been added")
+    })
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    @PostMapping("/add")
-    default ResponseEntity<?> addMovie(@RequestBody AddedMovieDto addedMovieDto) {
+    @PostMapping(
+            value = "",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    default MovieEntity addMovie(@RequestBody AddMovieRequest addMovieRequest) {
         throw new NotImplementedException();
     }
 }

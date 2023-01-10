@@ -1,11 +1,11 @@
-package pl.aogiri.hhu.fsa.backend.movie.application.dto;
+package pl.aogiri.hhu.fsa.backend.movie.application.request;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class AddedMovieDto {
+public class AddMovieRequest {
 
     private String title;
     private String description;

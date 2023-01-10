@@ -2,13 +2,13 @@ package pl.aogiri.hhu.fsa.backend.movie.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-import pl.aogiri.hhu.fsa.backend.movie.application.dto.AddedMovieDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDetailsDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
-import pl.aogiri.hhu.fsa.backend.movie.application.mapper.AddedMovieMapper;
 import pl.aogiri.hhu.fsa.backend.movie.application.mapper.MovieDetailsMapper;
 import pl.aogiri.hhu.fsa.backend.movie.application.mapper.MovieMapper;
+import pl.aogiri.hhu.fsa.backend.movie.application.request.AddMovieRequest;
+import pl.aogiri.hhu.fsa.backend.movie.domain.entity.MovieEntity;
+import pl.aogiri.hhu.fsa.backend.movie.domain.repository.GenreRepository;
 import pl.aogiri.hhu.fsa.backend.movie.domain.repository.MovieRepository;
 import pl.aogiri.hhu.fsa.backend.movie.exception.MovieNotFoundException;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class MovieService {
 
     private final MovieRepository movieRepository;
-    private final AddedMovieMapper addedMovieMapper;
+    private final GenreRepository genreRepository;
 
     public List<MovieDto> getAllMovies() {
         return movieRepository.findAll().stream()
@@ -33,9 +33,9 @@ public class MovieService {
                 .orElseThrow(() -> new MovieNotFoundException(movieId));
     }
 
-    public boolean addMovie(AddedMovieDto addedMovieDto) {
-        final var movieEntity = addedMovieMapper.toEntity(addedMovieDto);
+    public MovieEntity addMovie(AddMovieRequest addMovieRequest) {
+        final var movieEntity = MovieMapper.toEntity(addMovieRequest, genreRepository.findAllByIdIn(addMovieRequest.getGenres()));
         movieRepository.save(movieEntity);
-        return !ObjectUtils.isEmpty(movieEntity.getId());
+        return movieEntity;
     }
 }
