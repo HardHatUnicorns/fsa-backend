@@ -69,4 +69,22 @@ public interface MovieController {
     default MovieEntity addMovie(@RequestBody AddMovieRequest addMovieRequest) {
         throw new NotImplementedException();
     }
+
+    @Operation(summary = "Delete movie from database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful delete movie"),
+            @ApiResponse(responseCode = "204", description = "Successful delete movie"),
+            @ApiResponse(responseCode = "404", description = "Movie not found"),
+            @ApiResponse(responseCode = "500", description = "Error occurred when trying to delete movie")
+    })
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    @DeleteMapping(
+            value = "/{movieId}",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    @PreAuthorize("hasRole('MOVIE_DELETE')")
+    default void deleteMovie(@PathVariable long movieId) {
+        throw new NotImplementedException();
+    }
 }
