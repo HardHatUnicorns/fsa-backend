@@ -15,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         "classpath:/sql/genre/genres.sql",
         "classpath:/sql/user/users.sql",
         "classpath:/sql/movie/the_incredibles.sql",
+        "classpath:/sql/movie/the_incredibles_2.sql"
 })
 @Sql(value = "classpath:/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 class MovieControllerAcceptanceTest extends AcceptanceTest {
@@ -31,8 +32,10 @@ class MovieControllerAcceptanceTest extends AcceptanceTest {
                 .body().as(MovieDto[].class);
 
         assertThat(movieDtos)
-                .hasSize(1)
-                .contains(MovieDtoFixture.theIncredibles());
+                .hasSize(2)
+                .contains(MovieDtoFixture.theIncredibles2(),
+                        MovieDtoFixture.theIncredibles()
+                );
     }
 
     @Test
@@ -48,6 +51,7 @@ class MovieControllerAcceptanceTest extends AcceptanceTest {
 
         assertThat(detailsDto).isEqualTo(MovieDetailsDtoFixture.theIncredibles());
     }
+
     @Test
     void shouldReturnMoviesByTitle() {
         final var movieDtos = given()
@@ -60,7 +64,9 @@ class MovieControllerAcceptanceTest extends AcceptanceTest {
                 .body().as(MovieDto[].class);
 
         assertThat(movieDtos)
-                .hasSize(1)
-                .contains(MovieDtoFixture.theIncredibles());
+                .hasSize(2)
+                .containsExactly(MovieDtoFixture.theIncredibles2(),
+                        MovieDtoFixture.theIncredibles()
+                );
     }
 }
