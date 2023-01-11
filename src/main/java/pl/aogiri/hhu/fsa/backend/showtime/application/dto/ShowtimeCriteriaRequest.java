@@ -8,8 +8,8 @@ import java.time.LocalDate;
 
 @Value
 public class ShowtimeCriteriaRequest {
-    long movieId;
-    long facilityId;
+    Long movieId;
+    Long facilityId;
     LocalDate fromDate;
     LocalDate toDate;
     ShowtimeVideoType showtimeVideoType;

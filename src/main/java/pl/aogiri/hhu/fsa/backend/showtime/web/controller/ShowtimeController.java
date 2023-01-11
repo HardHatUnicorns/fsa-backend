@@ -8,7 +8,6 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
 import pl.aogiri.hhu.fsa.backend.showtime.application.dto.ShowtimeCriteriaRequest;
 import pl.aogiri.hhu.fsa.backend.showtime.application.dto.ShowtimeDto;
 
@@ -43,7 +42,7 @@ public interface ShowtimeController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
-    default List<MovieDto> getShowtimesByCriteria(ShowtimeCriteriaRequest showtimeCriteriaRequest) {
+    default List<ShowtimeDto> getShowtimesByCriteria(ShowtimeCriteriaRequest showtimeCriteriaRequest) {
         throw new NotImplementedException();
     }
 

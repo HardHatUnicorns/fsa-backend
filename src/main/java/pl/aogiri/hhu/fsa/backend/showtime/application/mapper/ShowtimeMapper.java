@@ -13,6 +13,7 @@ public class ShowtimeMapper {
         showtimeDto.setTextType(showtimeEntity.getTextType());
         showtimeDto.setTextLanguage(showtimeEntity.getTextLanguage());
         showtimeDto.setDatetime(showtimeEntity.getDatetime());
+        showtimeDto.setCinemaFacilityName(showtimeEntity.getCinemaFacility().getName());
         return showtimeDto;
     }
 }
