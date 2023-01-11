@@ -1,5 +1,6 @@
 package pl.aogiri.hhu.fsa.backend.showtime.application.mapper;
 
+import pl.aogiri.hhu.fsa.backend.cinema.application.mapper.CinemaFacilityDetailsDtoFixture;
 import pl.aogiri.hhu.fsa.backend.movie.application.mapper.MovieEntityFixture;
 import pl.aogiri.hhu.fsa.backend.showtime.application.dto.ShowtimeDto;
 import pl.aogiri.hhu.fsa.backend.showtime.domain.enums.ShowtimeTextSourceType;
@@ -13,6 +14,7 @@ public class ShowtimeDtoFixture {
         final var showtimeDto = new ShowtimeDto();
         showtimeDto.setId(1L);
         showtimeDto.setMovieTitle(MovieEntityFixture.theIncredibles().getTitle());
+        showtimeDto.setCinemaFacilityName(CinemaFacilityDetailsDtoFixture.cinemaCityBonarka().getName());
         showtimeDto.setVideoType(ShowtimeVideoType._2D);
         showtimeDto.setTextType(ShowtimeTextSourceType.DUB);
         showtimeDto.setTextLanguage("Polish");
