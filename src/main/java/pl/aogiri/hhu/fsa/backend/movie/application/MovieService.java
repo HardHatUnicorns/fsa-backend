@@ -42,7 +42,8 @@ public class MovieService {
     public List<MovieDto> getMoviesByCriteria(MovieFilterDto criteria) {
         return movieRepository.findAll().stream()
                 .sorted(Comparator.comparing(MovieEntity::getReleaseDate).reversed())
-                .filter(x -> criteria.getYear().contains(x.getReleaseDate().getYear())
+                .filter(x -> x.getTitle().contains(criteria.getTitle())
+                        || criteria.getYear().contains(x.getReleaseDate().getYear())
                         || criteria.getCountry().contains(x.getProductionCountry())
                         || criteria.getDirector().contains(x.getDirector())
                         || x.getGenres().stream().map(GenreEntity::getName)
@@ -51,7 +52,7 @@ public class MovieService {
                         .anyMatch(s -> criteria.getScore().contains(s.intValue())))
                 .map(MovieMapper::toDto)
                 .toList();
-}
+    }
 
     public MovieDetailsDto getMovieDetails(Long movieId) {
         return movieRepository.findById(movieId)

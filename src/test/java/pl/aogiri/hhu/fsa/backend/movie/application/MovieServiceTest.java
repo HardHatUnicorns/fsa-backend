@@ -176,6 +176,28 @@ class MovieServiceTest {
     }
 
     @Test
+    void shouldReturnMoviesByTitle() {
+        //given
+        final var movies = List.of(MovieEntityFixture.theIncredibles(),
+                MovieEntityFixture.theIncredibles2());
+        final var criteria = new MovieFilterDto();
+        criteria.setTitle("Incredibles");
+
+        given(movieRepository.findAll()).willReturn(movies);
+
+        //when
+        final List<MovieDto> actualAllMovies = movieService.getMoviesByCriteria(criteria);
+
+        //then
+        assertThat(actualAllMovies)
+                .hasSize(2)
+                .containsExactly(
+                        MovieDtoFixture.theIncredibles2(),
+                        MovieDtoFixture.theIncredibles()
+                );
+    }
+
+    @Test
     void shouldAddNewMovieForCorrectDto() {
         //given
         final var givenMovie = AddMovieRequestFixture.theIncredibles();

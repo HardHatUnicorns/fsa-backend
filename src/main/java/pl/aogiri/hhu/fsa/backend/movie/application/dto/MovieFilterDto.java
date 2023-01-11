@@ -8,13 +8,14 @@ import java.util.stream.Stream;
 
 @Data
 public class MovieFilterDto {
-    List<String> genre = new ArrayList<>();
-    List<Integer> score = new ArrayList<>();
-    List<Integer> year = new ArrayList<>();
-    List<String> country = new ArrayList<>();
-    List<String> director = new ArrayList<>();
+    private String title = "";
+    private List<String> genre = new ArrayList<>();
+    private List<Integer> score = new ArrayList<>();
+    private List<Integer> year = new ArrayList<>();
+    private List<String> country = new ArrayList<>();
+    private List<String> director = new ArrayList<>();
 
     public boolean withNoParam() {
-        return Stream.of(genre, score, year, country, director).allMatch(List::isEmpty);
+        return Stream.of(genre, score, year, country, director).allMatch(List::isEmpty) && title.isEmpty();
     }
 }
