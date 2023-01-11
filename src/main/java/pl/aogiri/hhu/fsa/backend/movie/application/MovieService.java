@@ -51,7 +51,7 @@ public class MovieService {
                         .anyMatch(s -> criteria.getScore().contains(s.intValue())))
                 .map(MovieMapper::toDto)
                 .toList();
-}
+    }
 
     public MovieDetailsDto getMovieDetails(Long movieId) {
         return movieRepository.findById(movieId)
@@ -69,5 +69,13 @@ public class MovieService {
 
         final var movieEntity = MovieMapper.toEntity(addMovieRequest, getGenresById);
         return movieRepository.save(movieEntity);
+    }
+
+    public void deleteMovie(Long movieId) {
+        if (!movieRepository.existsById(movieId)) {
+            throw new MovieNotFoundException(movieId);
+        }
+
+        movieRepository.deleteById(movieId);
     }
 }

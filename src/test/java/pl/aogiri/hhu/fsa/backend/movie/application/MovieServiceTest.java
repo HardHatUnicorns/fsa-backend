@@ -192,4 +192,35 @@ class MovieServiceTest {
         verify(movieRepository).save(expectedMovie);
         assertThat(actual).isEqualTo(expectedMovie);
     }
+
+    @Test
+    void shouldDeleteMovieForCorrectMovieId() {
+        //given
+        final var movieId = 1L;
+
+        given(movieRepository.existsById(movieId)).willReturn(true);
+
+        //when
+        movieService.deleteMovie(movieId);
+
+        //then
+        verify(movieRepository).deleteById(movieId);
+    }
+
+    @Test
+    void shouldThrowMovieNotFoundExceptionForIncorrectMovieIdWhenDeleteMovie() {
+        //given
+        final var movieId = 5L;
+
+        given(movieRepository.existsById(movieId)).willReturn(false);
+
+        //when/then
+        final var exception = assertThrows(
+                MovieNotFoundException.class,
+                () -> movieService.deleteMovie(movieId)
+        );
+
+        //then
+        assertThat(exception.getMessage()).isEqualTo(format("Movie with id %d not found", movieId));
+    }
 }
