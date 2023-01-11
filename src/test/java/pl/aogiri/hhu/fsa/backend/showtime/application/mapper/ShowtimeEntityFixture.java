@@ -21,4 +21,16 @@ public class ShowtimeEntityFixture {
         showtimeEntity.setDatetime(LocalDateTime.of(2023, 2, 5, 10, 15));
         return showtimeEntity;
     }
+
+    public static ShowtimeEntity showtimeAvatarTheWayOfWaterInCinemaCityBonarka() {
+        final var showtimeEntity = new ShowtimeEntity();
+        showtimeEntity.setId(2L);
+        showtimeEntity.setMovie(MovieEntityFixture.avatarTheWayOfWater());
+        showtimeEntity.setCinemaFacility(CinemaFacilityEntityFixture.cinemaCityBonarka());
+        showtimeEntity.setVideoType(ShowtimeVideoType._3D);
+        showtimeEntity.setTextType(ShowtimeTextSourceType.SUB);
+        showtimeEntity.setTextLanguage("Polish");
+        showtimeEntity.setDatetime(LocalDateTime.of(2023, 2, 5, 20, 0));
+        return showtimeEntity;
+    }
 }
