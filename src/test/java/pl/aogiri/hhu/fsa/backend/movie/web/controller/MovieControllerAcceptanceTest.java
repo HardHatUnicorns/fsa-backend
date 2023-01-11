@@ -48,13 +48,12 @@ class MovieControllerAcceptanceTest extends AcceptanceTest {
 
         assertThat(detailsDto).isEqualTo(MovieDetailsDtoFixture.theIncredibles());
     }
-
     @Test
-    void shouldFindMovies() {
+    void shouldReturnMoviesByTitle() {
         final var movieDtos = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/movies?title=incredibles")
+                .get("/movies?title=Incredibles")
                 .then()
                 .statusCode(200)
                 .extract()
