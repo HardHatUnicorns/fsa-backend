@@ -72,12 +72,11 @@ public interface MovieController {
 
     @Operation(summary = "Delete movie from database")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful delete movie"),
-            @ApiResponse(responseCode = "204", description = "Successful delete movie"),
+            @ApiResponse(responseCode = "204", description = "Successful deleted movie"),
             @ApiResponse(responseCode = "404", description = "Movie not found"),
             @ApiResponse(responseCode = "500", description = "Error occurred when trying to delete movie")
     })
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
     @DeleteMapping(
             value = "/{movieId}",
