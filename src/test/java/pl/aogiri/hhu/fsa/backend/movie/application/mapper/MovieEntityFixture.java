@@ -76,4 +76,22 @@ public class MovieEntityFixture {
         movieEntity.setDirector("Brad Bird");
         return movieEntity;
     }
+
+    public static MovieEntity theIncredibles2() {
+        final var movieEntity = new MovieEntity();
+        movieEntity.setId(4L);
+        movieEntity.setTitle("The Incredibles 2");
+        movieEntity.setDescription("While the Parr family has accepted its collective calling as superheroes, the fact remains that their special heroism is still illegal. After they are arrested after unsuccessfully trying to stop the Underminer, their future seems bleak. However, the wealthy Deavor siblings of Devtech offer new hope with a bold project to rehabilitate the public image and legal status of Supers, with Elastigirl being assigned on point to be the shining example. Having agreed for now to stay home to look after the kids, Mr. Incredible finds domestic life a daunting challenge, especially when baby Jack-Jack's newly-emerged powers make him almost impossible to manage. However, Elastigirl has her own concerns dealing with the menace of a new supervillain, Screenslaver, who is wreaking havoc with his mind-control abilities. Elastigirl must solve the mystery of this enemy who has malevolent designs on the world, with the Parr family and friends key targets of this evil.");
+        movieEntity.setGenres(List.of(GenreEntityFixture.action(), GenreEntityFixture.comedy()));
+        movieEntity.setDurationInMinutes(118);
+        movieEntity.setReleaseDate(LocalDate.parse("2018-06-05"));
+        movieEntity.setProductionCountry("USA");
+        movieEntity.setDirector("Brad Bird");
+        movieEntity.setScores(List.of(
+                ScoreEntityFixture.johnDon_theShawshankRedemption_score("8"),
+                ScoreEntityFixture.janeDoe_theShawshankRedemption_score("9"),
+                ScoreEntityFixture.johnSmith_theShawshankRedemption_score("8")
+        ));
+        return movieEntity;
+    }
 }

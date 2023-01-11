@@ -40,4 +40,14 @@ public class MovieDtoFixture {
         movieDto.setScore(new BigDecimal("8.33"));
         return movieDto;
     }
+
+    public static MovieDto theIncredibles2() {
+        final var movieDto = new MovieDto();
+        movieDto.setId(4L);
+        movieDto.setTitle("The Incredibles 2");
+        movieDto.setShortDescription("While the Parr family has accepted its collective calling as superheroes, the fact remains that their special h...");
+        movieDto.setGenres(List.of("Action", "Comedy"));
+        movieDto.setScore(new BigDecimal("8.33"));
+        return movieDto;
+    }
 }
