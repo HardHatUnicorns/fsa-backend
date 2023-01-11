@@ -46,7 +46,6 @@ dependencies {
 
     testImplementation 'io.rest-assured:rest-assured:4.5.1'
 
-    testImplementation group: 'org.mockito', name: 'mockito-inline', version: '4.11.0'
 }
 
 dependencyManagement {
