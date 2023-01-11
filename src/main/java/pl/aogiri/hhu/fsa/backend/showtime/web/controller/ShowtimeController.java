@@ -7,10 +7,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
 import pl.aogiri.hhu.fsa.backend.showtime.application.dto.ShowtimeCriteriaRequest;
 import pl.aogiri.hhu.fsa.backend.showtime.application.dto.ShowtimeDto;
+import pl.aogiri.hhu.fsa.backend.showtime.application.dto.request.AddShowtimeRequest;
+import pl.aogiri.hhu.fsa.backend.showtime.domain.entity.ShowtimeEntity;
 
 import java.util.List;
 
@@ -44,6 +47,23 @@ public interface ShowtimeController {
     @ResponseBody
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     default List<MovieDto> getShowtimesByCriteria(ShowtimeCriteriaRequest showtimeCriteriaRequest) {
+        throw new NotImplementedException();
+    }
+
+    @Operation(summary = "Add a showtime")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Showtime added successfully"),
+            @ApiResponse(responseCode = "400", description = "Requested data are incorrect"),
+            @ApiResponse(responseCode = "500", description = "Error occurred when adding a showtime")
+    })
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    @PostMapping(
+            value = "",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    @PreAuthorize("hasRole('SHOWTIME_ADD')")
+    default ShowtimeEntity addShowtime(@RequestBody AddShowtimeRequest addShowtimeRequest) {
         throw new NotImplementedException();
     }
 
