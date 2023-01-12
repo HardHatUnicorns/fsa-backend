@@ -13,8 +13,10 @@ import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaDetailsDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDetailsDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDto;
+import pl.aogiri.hhu.fsa.backend.cinema.application.dto.request.AddCinemaFacilityRequest;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.request.AddCinemaRequest;
 import pl.aogiri.hhu.fsa.backend.cinema.domain.entity.CinemaEntity;
+import pl.aogiri.hhu.fsa.backend.cinema.domain.entity.CinemaFacilityEntity;
 
 import java.util.List;
 
@@ -100,6 +102,23 @@ public interface CinemaController {
     )
     @PreAuthorize("hasRole('CINEMA_ADD')")
     default CinemaEntity addCinema(@RequestBody AddCinemaRequest addCinemaRequest) {
+        throw new NotImplementedException();
+    }
+
+    @Operation(summary = "Add a cinema facility")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Cinema facility added successfully"),
+            @ApiResponse(responseCode = "400", description = "Requested data are incorrect"),
+            @ApiResponse(responseCode = "500", description = "Error occurred when adding a cinema")
+    })
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    @PostMapping(
+            value = "/{cinemaId}/facilities",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    @PreAuthorize("hasRole('CINEMA_FACILITY_ADD')")
+    default CinemaFacilityEntity addCinemaFacility(@PathVariable Long cinemaId, @RequestBody AddCinemaFacilityRequest addCinemaFacilityRequest) {
         throw new NotImplementedException();
     }
 }

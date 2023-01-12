@@ -6,10 +6,12 @@ import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaDetailsDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDetailsDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDto;
+import pl.aogiri.hhu.fsa.backend.cinema.application.dto.request.AddCinemaFacilityRequest;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.request.AddCinemaRequest;
 import pl.aogiri.hhu.fsa.backend.cinema.application.service.CinemaFacilityService;
 import pl.aogiri.hhu.fsa.backend.cinema.application.service.CinemaService;
 import pl.aogiri.hhu.fsa.backend.cinema.domain.entity.CinemaEntity;
+import pl.aogiri.hhu.fsa.backend.cinema.domain.entity.CinemaFacilityEntity;
 
 import java.util.List;
 
@@ -42,5 +44,10 @@ public class CinemaControllerImpl implements CinemaController {
     @Override
     public CinemaEntity addCinema(AddCinemaRequest addCinemaRequest) {
         return cinemaService.addCinema(addCinemaRequest);
+    }
+
+    @Override
+    public CinemaFacilityEntity addCinemaFacility(Long cinemaId, AddCinemaFacilityRequest addCinemaFacilityRequest) {
+        return cinemaFacilityService.addCinemaFacility(cinemaId, addCinemaFacilityRequest);
     }
 }

@@ -5,6 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.aogiri.hhu.fsa.backend.cinema.application.mapper.AddCinemaFacilityRequestFixture;
+import pl.aogiri.hhu.fsa.backend.cinema.application.mapper.CinemaEntityFixture;
 import pl.aogiri.hhu.fsa.backend.cinema.application.mapper.CinemaFacilityDtoFixture;
 import pl.aogiri.hhu.fsa.backend.cinema.application.mapper.CinemaFacilityEntityFixture;
 import pl.aogiri.hhu.fsa.backend.cinema.domain.repository.CinemaFacilityRepository;
@@ -18,7 +20,9 @@ import java.util.Optional;
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class CinemaFacilityServiceTest {
@@ -121,4 +125,38 @@ class CinemaFacilityServiceTest {
         assertThat(exception.getMessage()).
                 isEqualTo(format("For cinema with id %s, facility with id %d not found", givenCinemaId, givenFacilityId));
     }
+
+    @Test
+    void shouldAddNewCinemaFacilityForCorrectDto() {
+        //given
+        final var givenCinemaId = 1L;
+        final var cinemaFacilityDto = AddCinemaFacilityRequestFixture.cinemaCityBonarka();
+        final var cinemaEntity = CinemaEntityFixture.cinemaCity();
+
+        given(cinemaRepository.findById(givenCinemaId)).willReturn(Optional.of(cinemaEntity));
+
+        //when
+        cinemaFacilityService.addCinemaFacility(givenCinemaId, cinemaFacilityDto);
+
+        //then
+        verify(cinemaFacilityRepository).save(any());
+    }
+
+    @Test
+    void shouldThrowCinemaNotfoundExceptionForIncorrectCinemaIdForAddCinemaFacilities() {
+        //given
+        final var givenCinemaId = 1L;
+        final var cinemaFacilityDto = AddCinemaFacilityRequestFixture.cinemaCityBonarka();
+        given(cinemaRepository.findById(givenCinemaId)).willReturn(Optional.empty());
+
+        //when/then
+        final var exception = assertThrows(
+                CinemaNotFoundException.class,
+                () -> cinemaFacilityService.addCinemaFacility(givenCinemaId, cinemaFacilityDto)
+        );
+
+        assertThat(exception.getMessage()).isEqualTo(format("Cinema with id %d not found", givenCinemaId));
+    }
+
+
 }
