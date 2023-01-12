@@ -7,11 +7,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaDetailsDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDetailsDto;
 import pl.aogiri.hhu.fsa.backend.cinema.application.dto.CinemaFacilityDto;
+import pl.aogiri.hhu.fsa.backend.cinema.application.dto.request.AddCinemaRequest;
+import pl.aogiri.hhu.fsa.backend.cinema.domain.entity.CinemaEntity;
 
 import java.util.List;
 
@@ -80,6 +83,23 @@ public interface CinemaController {
     default CinemaFacilityDetailsDto getCinemaFacilityDetails(
             @PathVariable long cinemaId, @PathVariable long facilityId
     ) {
+        throw new NotImplementedException();
+    }
+
+    @Operation(summary = "Add a cinema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Cinema added successfully"),
+            @ApiResponse(responseCode = "400", description = "Requested data are incorrect"),
+            @ApiResponse(responseCode = "500", description = "Error occurred when adding a cinema")
+    })
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    @PostMapping(
+            value = "",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    @PreAuthorize("hasRole('CINEMA_ADD')")
+    default CinemaEntity addCinema(@RequestBody AddCinemaRequest addCinemaRequest) {
         throw new NotImplementedException();
     }
 }

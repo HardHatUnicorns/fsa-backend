@@ -17,6 +17,7 @@ import pl.aogiri.hhu.fsa.backend.movie.exception.MovieNotFoundException;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 @RequiredArgsConstructor
 @Service
@@ -40,18 +41,21 @@ public class MovieService {
     }
 
     public List<MovieDto> getMoviesByCriteria(MovieFilterDto criteria) {
+        Predicate<MovieEntity> criteriaPredicate = x -> criteria.getYear().contains(x.getReleaseDate().getYear())
+                || criteria.getCountry().contains(x.getProductionCountry())
+                || criteria.getDirector().contains(x.getDirector())
+                || x.getGenres().stream().map(GenreEntity::getName)
+                .anyMatch(g -> criteria.getGenre().contains(g))
+                || x.getScores().stream().map(ScoreEntity::getScore)
+                .anyMatch(s -> criteria.getScore().contains(s.intValue()));
+        Predicate<MovieEntity> titlePredicate = m -> m.getTitle().contains(criteria.getTitle());
+
         return movieRepository.findAll().stream()
                 .sorted(Comparator.comparing(MovieEntity::getReleaseDate).reversed())
-                .filter(x -> criteria.getYear().contains(x.getReleaseDate().getYear())
-                        || criteria.getCountry().contains(x.getProductionCountry())
-                        || criteria.getDirector().contains(x.getDirector())
-                        || x.getGenres().stream().map(GenreEntity::getName)
-                        .anyMatch(g -> criteria.getGenre().contains(g))
-                        || x.getScores().stream().map(ScoreEntity::getScore)
-                        .anyMatch(s -> criteria.getScore().contains(s.intValue())))
+                .filter(criteria.getTitle().isBlank() ? criteriaPredicate : titlePredicate.or(criteriaPredicate))
                 .map(MovieMapper::toDto)
                 .toList();
-}
+    }
 
     public MovieDetailsDto getMovieDetails(Long movieId) {
         return movieRepository.findById(movieId)
@@ -69,5 +73,13 @@ public class MovieService {
 
         final var movieEntity = MovieMapper.toEntity(addMovieRequest, getGenresById);
         return movieRepository.save(movieEntity);
+    }
+
+    public void deleteMovie(Long movieId) {
+        if (!movieRepository.existsById(movieId)) {
+            throw new MovieNotFoundException(movieId);
+        }
+
+        movieRepository.deleteById(movieId);
     }
 }

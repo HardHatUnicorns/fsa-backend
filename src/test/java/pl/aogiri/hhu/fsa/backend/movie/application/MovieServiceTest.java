@@ -176,6 +176,54 @@ class MovieServiceTest {
     }
 
     @Test
+    void shouldReturnMoviesByTitle() {
+        //given
+        final var movies = List.of(MovieEntityFixture.theIncredibles(),
+                MovieEntityFixture.theIncredibles2());
+        final var criteria = new MovieFilterDto();
+        criteria.setTitle("Incredibles");
+
+        given(movieRepository.findAll()).willReturn(movies);
+
+        //when
+        final List<MovieDto> actualAllMovies = movieService.getMoviesByCriteria(criteria);
+
+        //then
+        assertThat(actualAllMovies)
+                .hasSize(2)
+                .containsExactly(
+                        MovieDtoFixture.theIncredibles2(),
+                        MovieDtoFixture.theIncredibles()
+                );
+    }
+
+    @Test
+    void shouldReturnMoviesByTitleAndGenre() {
+        //given
+        final var movies = List.of(MovieEntityFixture.theIncredibles(),
+                MovieEntityFixture.theIncredibles2(),
+                MovieEntityFixture.theShawshankRedemption(),
+                MovieEntityFixture.avatarTheWayOfWater());
+        final var criteria = new MovieFilterDto();
+        criteria.setTitle("Incredibles");
+        criteria.setGenre(List.of("Action"));
+
+        given(movieRepository.findAll()).willReturn(movies);
+
+        //when
+        final List<MovieDto> actualAllMovies = movieService.getMoviesByCriteria(criteria);
+
+        //then
+        assertThat(actualAllMovies)
+                .hasSize(3)
+                .containsExactly(
+                        MovieDtoFixture.avatarTheWayOfWater(),
+                        MovieDtoFixture.theIncredibles2(),
+                        MovieDtoFixture.theIncredibles()
+                );
+    }
+
+    @Test
     void shouldAddNewMovieForCorrectDto() {
         //given
         final var givenMovie = AddMovieRequestFixture.theIncredibles();
@@ -191,5 +239,36 @@ class MovieServiceTest {
         //then
         verify(movieRepository).save(expectedMovie);
         assertThat(actual).isEqualTo(expectedMovie);
+    }
+
+    @Test
+    void shouldDeleteMovieForCorrectMovieId() {
+        //given
+        final var movieId = 1L;
+
+        given(movieRepository.existsById(movieId)).willReturn(true);
+
+        //when
+        movieService.deleteMovie(movieId);
+
+        //then
+        verify(movieRepository).deleteById(movieId);
+    }
+
+    @Test
+    void shouldThrowMovieNotFoundExceptionForIncorrectMovieIdWhenDeleteMovie() {
+        //given
+        final var movieId = 5L;
+
+        given(movieRepository.existsById(movieId)).willReturn(false);
+
+        //when/then
+        final var exception = assertThrows(
+                MovieNotFoundException.class,
+                () -> movieService.deleteMovie(movieId)
+        );
+
+        //then
+        assertThat(exception.getMessage()).isEqualTo(format("Movie with id %d not found", movieId));
     }
 }
