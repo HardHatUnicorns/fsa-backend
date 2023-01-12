@@ -8,9 +8,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.aogiri.hhu.fsa.backend.showtime.application.dto.ShowtimeCriteriaRequest;
 import pl.aogiri.hhu.fsa.backend.showtime.application.mapper.ShowtimeDtoFixture;
 import pl.aogiri.hhu.fsa.backend.showtime.application.mapper.ShowtimeEntityFixture;
+import pl.aogiri.hhu.fsa.backend.showtime.domain.enums.ShowtimeTextSourceType;
+import pl.aogiri.hhu.fsa.backend.showtime.domain.enums.ShowtimeVideoType;
 import pl.aogiri.hhu.fsa.backend.showtime.domain.repository.ShowtimeRepository;
 import pl.aogiri.hhu.fsa.backend.showtime.exception.ShowtimeNotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +21,6 @@ import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 public class ShowtimeServiceTest {
@@ -66,7 +68,13 @@ public class ShowtimeServiceTest {
         final var showtimes = List.of(
                 ShowtimeEntityFixture.showtimeTheIncrediblesInCinemaCityBonarka(),
                 ShowtimeEntityFixture.showtimeAvatarTheWayOfWaterInCinemaCityBonarka());
-        final var criteria = mock(ShowtimeCriteriaRequest.class);
+        final var criteria = new ShowtimeCriteriaRequest(1L,
+                1L,
+                LocalDate.of(2023, 1, 11),
+                LocalDate.of(2023, 1, 13),
+                ShowtimeVideoType._2D,
+                ShowtimeTextSourceType.SUB,
+                "Polish");
 
         given(showtimeRepository.findAll()).willReturn(showtimes);
 
