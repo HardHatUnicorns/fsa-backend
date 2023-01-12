@@ -68,13 +68,7 @@ public class ShowtimeServiceTest {
         final var showtimes = List.of(
                 ShowtimeEntityFixture.showtimeTheIncrediblesInCinemaCityBonarka(),
                 ShowtimeEntityFixture.showtimeAvatarTheWayOfWaterInCinemaCityBonarka());
-        final var criteria = new ShowtimeCriteriaRequest(1L,
-                1L,
-                LocalDate.of(2023, 1, 11),
-                LocalDate.of(2023, 1, 13),
-                ShowtimeVideoType._2D,
-                ShowtimeTextSourceType.SUB,
-                "Polish");
+        final var criteria = new ShowtimeCriteriaRequest(null, null, null, null, null, null, null);
 
         given(showtimeRepository.findAll()).willReturn(showtimes);
 
