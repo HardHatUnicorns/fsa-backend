@@ -8,12 +8,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.aogiri.hhu.fsa.backend.showtime.application.dto.ShowtimeCriteriaRequest;
 import pl.aogiri.hhu.fsa.backend.showtime.application.mapper.ShowtimeDtoFixture;
 import pl.aogiri.hhu.fsa.backend.showtime.application.mapper.ShowtimeEntityFixture;
-import pl.aogiri.hhu.fsa.backend.showtime.domain.enums.ShowtimeTextSourceType;
-import pl.aogiri.hhu.fsa.backend.showtime.domain.enums.ShowtimeVideoType;
 import pl.aogiri.hhu.fsa.backend.showtime.domain.repository.ShowtimeRepository;
 import pl.aogiri.hhu.fsa.backend.showtime.exception.ShowtimeNotFoundException;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
