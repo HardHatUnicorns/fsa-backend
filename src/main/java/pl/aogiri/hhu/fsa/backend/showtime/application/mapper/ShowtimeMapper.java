@@ -11,6 +11,7 @@ public class ShowtimeMapper {
     public static ShowtimeDto toDto(ShowtimeEntity showtimeEntity) {
         final var showtimeDto = new ShowtimeDto();
         showtimeDto.setId(showtimeEntity.getId());
+        showtimeDto.setCinemaFacilityName(showtimeEntity.getCinemaFacility().getName());
         showtimeDto.setMovieTitle(showtimeEntity.getMovie().getTitle());
         showtimeDto.setVideoType(showtimeEntity.getVideoType());
         showtimeDto.setTextType(showtimeEntity.getTextType());

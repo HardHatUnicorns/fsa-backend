@@ -38,7 +38,7 @@ public interface ShowtimeController {
         throw new NotImplementedException();
     }
 
-    @Operation(summary = "Get all showtimes for cinema facility")
+    @Operation(summary = "Get all showtimes fulfilling provided criteria")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation")
     })
