@@ -2,8 +2,10 @@ package pl.aogiri.hhu.fsa.backend.movie.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.aogiri.hhu.fsa.backend.genre.application.GenreService;
 import pl.aogiri.hhu.fsa.backend.genre.domain.entity.GenreEntity;
 import pl.aogiri.hhu.fsa.backend.genre.domain.repository.GenreRepository;
+import pl.aogiri.hhu.fsa.backend.genre.exception.NotSupportedGenresException;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDetailsDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieDto;
 import pl.aogiri.hhu.fsa.backend.movie.application.dto.MovieFilterDto;
@@ -25,6 +27,7 @@ public class MovieService {
 
     private final MovieRepository movieRepository;
     private final GenreRepository genreRepository;
+    private final GenreService genreService;
 
     public List<MovieDto> getMovies(MovieFilterDto criteria) {
         if (criteria.withNoParam()) {
@@ -73,6 +76,24 @@ public class MovieService {
 
         final var movieEntity = MovieMapper.toEntity(addMovieRequest, getGenresById);
         return movieRepository.save(movieEntity);
+    }
+
+    public MovieEntity updateMovie(Long movieId, AddMovieRequest addMovieRequest) {
+        final var movieEntityToUpdate = movieRepository.findById(movieId)
+                .orElseThrow(() -> new MovieNotFoundException(movieId));
+
+        final var requestedGenres = addMovieRequest.getGenres();
+        final var getGenresById = genreService.getAllGenresForIds(requestedGenres);
+
+        if (getGenresById.size() != requestedGenres.size()) {
+            throw new NotSupportedGenresException();
+        }
+
+        final var updatedMovieEntity = MovieMapper.toEntity(addMovieRequest, getGenresById);
+        updatedMovieEntity.setId(movieEntityToUpdate.getId());
+        updatedMovieEntity.setScores(movieEntityToUpdate.getScores());
+
+        return movieRepository.save(updatedMovieEntity);
     }
 
     public void deleteMovie(Long movieId) {

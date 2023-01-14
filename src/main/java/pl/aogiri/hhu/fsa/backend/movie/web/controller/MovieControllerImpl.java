@@ -32,6 +32,11 @@ public class MovieControllerImpl implements MovieController {
     }
 
     @Override
+    public MovieEntity updateMovie(long movieId, AddMovieRequest addMovieRequest) {
+        return movieService.updateMovie(movieId, addMovieRequest);
+    }
+
+    @Override
     public void deleteMovie(long movieId) {
         movieService.deleteMovie(movieId);
     }

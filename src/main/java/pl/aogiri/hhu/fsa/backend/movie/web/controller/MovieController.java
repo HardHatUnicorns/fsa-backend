@@ -70,6 +70,24 @@ public interface MovieController {
         throw new NotImplementedException();
     }
 
+    @Operation(summary = "Update movie in database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful updated movie"),
+            @ApiResponse(responseCode = "400", description = "Requested data are incorrect"),
+            @ApiResponse(responseCode = "404", description = "Movie not found"),
+            @ApiResponse(responseCode = "500", description = "Error occurred when trying to update movie")
+    })
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    @PutMapping(
+            value = "/{movieId}",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    @PreAuthorize("hasRole('MOVIE_UPDATE')")
+    default MovieEntity updateMovie(@PathVariable long movieId, @RequestBody AddMovieRequest addMovieRequest) {
+        throw new NotImplementedException();
+    }
+
     @Operation(summary = "Delete movie from database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Successful deleted movie"),
